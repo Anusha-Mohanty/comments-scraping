@@ -1,0 +1,6 @@
+# Lists dependencies
+playwright
+gspread
+oauth2client
+textblob
+nltk

@@ -1,0 +1,22 @@
+# Python virtual environment
+venv/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Google API credentials (do not commit sensitive info)
+creds.json
+
+# Data and output (intermediate and generated files)
+social_sentiment_analyzer/data/
+social_sentiment_analyzer/output/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db 
