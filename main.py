@@ -51,6 +51,14 @@ def main():
     options = webdriver.ChromeOptions()
     options.add_experimental_option("mobileEmulation", mobile_emulation)
     options.add_argument('--disable-blink-features=AutomationControlled')
+    headless_env = os.environ.get('HEADLESS', '0').lower()
+    if headless_env not in ['0', 'false']:
+        options.add_argument('--headless')
+        options.add_argument('--no-sandbox')
+        options.add_argument('--disable-dev-shm-usage')
+        print("[INFO] Running in headless mode.")
+    else:
+        print("[INFO] Running in headed (UI) mode.")
     try:
         driver = webdriver.Chrome(options=options)
         print("Chrome browser launched successfully in mobile emulation mode.")
