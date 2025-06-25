@@ -60,7 +60,10 @@ def main():
     else:
         print("[INFO] Running in headed (UI) mode.")
     try:
-        driver = webdriver.Chrome(options=options)
+        driver = webdriver.Remote(
+                command_executor='http://localhost:4444/wd/hub',
+                options=options
+                )
         print("Chrome browser launched successfully in mobile emulation mode.")
     except Exception as e:
         print(f"Failed to launch Chrome browser: {e}")
