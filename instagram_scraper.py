@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 import time
 from typing import List, Optional
+import os
 
 def get_comments_from_post(url: str, scrolls: int = 50, driver: Optional[webdriver.Chrome] = None) -> List[str]:
     """Scrapes only top-level comments from an Instagram post using mobile emulation and the comments icon."""
@@ -17,7 +18,18 @@ def get_comments_from_post(url: str, scrolls: int = 50, driver: Optional[webdriv
         options = webdriver.ChromeOptions()
         options.add_experimental_option("mobileEmulation", mobile_emulation)
         options.add_argument('--disable-blink-features=AutomationControlled')
-        driver = webdriver.Chrome(options=options)
+        headless_env = os.environ.get('HEADLESS', '0').lower()
+        if headless_env not in ['0', 'false']:
+            options.add_argument('--headless')
+            options.add_argument('--no-sandbox')
+            options.add_argument('--disable-dev-shm-usage')
+            print("[INFO] Running in headless mode.")
+        else:
+            print("[INFO] Running in headed (UI) mode.")
+        driver = webdriver.Remote(
+                command_executor='http://localhost:4444/wd/hub',
+                options=options
+)
         close_driver = True
 
     comments = set()
